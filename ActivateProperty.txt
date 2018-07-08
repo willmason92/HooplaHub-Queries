@@ -1,0 +1,9 @@
+public function activate_type($id=''){
+	$this->db->query("UPDATE `hp_property_types` SET `hp_status` = 1 WHERE `hp_id` = ".$id." ");
+	$afftectedRows=$this->db->affected_rows();
+	if($afftectedRows == 1){
+		return 1;
+	}else{
+		return 0;
+	}
+}

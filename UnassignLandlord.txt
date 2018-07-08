@@ -1,0 +1,15 @@
+public function remove_landlord($id='', $assign='') {
+	$agent_id = $this->session->userdata("hp_user_id");
+
+        $insert_property_landlords = array(
+        'hp_property_id'	=> $assign,
+        'hp_landlord_id'	=> 0,
+        'hp_agent_id'		=> $agent_id,
+        'hp_date'		=> date('Y-m-d H:i:s'),
+        'hp_status'		=> 0,
+        );
+
+	$this->db->where('hp_property_id',$assign);
+        $this->db->update('hp_property_landlords', $insert_property_landlords);
+        return 1;
+}

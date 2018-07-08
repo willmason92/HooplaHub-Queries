@@ -1,0 +1,34 @@
+function make_thumbnails($upload_dir, $img) {
+	$thumbnail_width = 200;
+	$thumbnail_height = 200;
+	$quality = 100;
+	$thumb_preword = "thumb-properties-150X150";
+
+	$image_details = GetImageSize("$upload_dir" . "$img");
+	if ($image_details['mime'] == 'image/jpeg') {
+	$src = imagecreatefromjpeg("$upload_dir" . "$img");
+	}elseif ($image_details['mime'] == 'image/jpg') {
+	$src = imagecreatefromjpeg("$upload_dir" . "$img");
+	} elseif ($image_details['mime'] == 'image/png') {
+	$src = imagecreatefrompng("$upload_dir" . "$img");
+	} elseif ($image_details['mime'] == 'image/gif') {
+	$src = imagecreatefromgif("$upload_dir" . "$img");
+	}
+
+	$tmp1 = imagecreatetruecolor($thumbnail_width, $thumbnail_height);
+	imagecopyresampled($tmp1, $src, 0, 0, 0, 0, $thumbnail_width, $thumbnail_height, $image_details[0], $image_details[1]);
+	
+	if ($image_details['mime'] == 'image/jpeg') {
+	//header("content-type: image/jpeg");
+	imagejpeg($tmp1, "$upload_dir" . "$thumb_preword" . "$img", $quality);
+	}elseif ($image_details['mime'] == 'image/jpg') {
+	//header("content-type: image/jpg");
+	imagejpeg($tmp1, "$upload_dir" . "$thumb_preword" . "$img", $quality);
+	}elseif ($image_details['mime'] == 'image/png') {
+	//header("content-type: image/png");
+	imagepng($tmp1, "{$upload_dir}$thumb_preword$img" , round(9 * $quality / 100));
+	} elseif ($image_details['mime'] == 'image/gif') {
+	//header("content-type: image/gif");
+	imagegif($tmp1, "{$upload_dir}$thumb_preword$img");
+	}
+}

@@ -1,0 +1,4 @@
+public function get_all_propertytypes(){
+	$created_agent = $this->session->userdata("hp_user_id");
+	return $this->db->query("SELECT * FROM `hp_property_types` WHERE hp_user_id='".$created_agent."' ORDER BY `hp_type_name` ")->result();
+}

@@ -1,0 +1,4 @@
+public function get_workorder_status_new($status=''){
+	$created_by = $this->session->userdata("hp_user_id");
+ 	return $this->db->query("SELECT DISTINCT w.`hp_property_id`,w.`hp_contractor_id`,w.`hp_work_status`,w.`hp_status` FROM hp_contractor_work AS w,hp_users AS u,hp_properties AS p WHERE w.`hp_contractor_id`=u.`hp_id` AND w.`hp_property_id`=p.`hp_id` AND w.`hp_user_id`='".$created_by."' AND w.`hp_work_status`='".$status."'")->result();
+}

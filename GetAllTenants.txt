@@ -1,0 +1,4 @@
+public function get_all_tenants(){
+	$created_agent = $this->session->userdata("hp_user_id");
+	return $this->db->query("SELECT u.*, t.* FROM `hp_users` AS u JOIN `hp_tenent_details` AS t ON u.`hp_id`=t.`hp_tenent_id` WHERE hp_type='6' AND t.`hp_created_by` = ".$created_agent." ")->result();	
+}
